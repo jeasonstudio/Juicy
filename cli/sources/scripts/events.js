@@ -2,6 +2,7 @@ document.onkeydown = function key_down(e) {
   left.last_char = e.key
 
   // Faster than Electron
+  // keyCode === 9 means <Tab>
   if (e.keyCode == 9) {
     if (e.shiftKey) {
       left.select_synonym();
@@ -11,6 +12,7 @@ document.onkeydown = function key_down(e) {
     e.preventDefault();
     return;
   }
+  console.log(e.key);
 
   // Reset index on space
   if (e.key == " " || e.key == "Enter") {
