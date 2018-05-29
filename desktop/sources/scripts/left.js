@@ -4,13 +4,13 @@ function renderResult(gResult, yResult, bResult) {
   let html = '';
   html += `<div class="f-container">`;
   html += `<h2 class="f-title g-title">谷歌翻译结果:</h2>`;
-  html += `<div class="g-res t-res"><span>${gResult}</span><button class="use-button" type="submit" onclick="useThis()">Use It</button></div>`
+  html += `<div class="g-res t-res"><span>${gResult}</span><div class="use-button" type="submit" onclick="useG()">Use It</div></div>`
   html += `<h2 class="f-title y-title">有道翻译结果:</h2>`;
-  html += `<div class="y-res t-res"><span>${yResult}</span><button class="use-button" type="submit" onclick="useThis()">Use It</button></div>`
+  html += `<div class="y-res t-res"><span>${yResult}</span><div class="use-button" type="submit" onclick="useY()">Use It</div></div>`
   html += `<h2 class="f-title b-title">百度翻译结果:</h2>`;
-  html += `<div class="b-res t-res"><span>${bResult}</span><button class="use-button" type="submit" onclick="useThis()">Use It</button></div>`
+  html += `<div class="b-res t-res"><span>${bResult}</span><div class="use-button" type="submit" onclick="useB()">Use It</div></div>`
   html += `</div>`
-  return html    
+  return html
 }
 function Left() {
   this.theme = new Theme();
@@ -201,8 +201,29 @@ function Left() {
           youdao.translate(text),
           baidu.translate(text)
         ])
-        window.transs = (a) => {
-          console.log(a);
+        window.useG = () => {
+          console.log('G', gResult.join(' '));
+          swal.close();
+          left.textarea_el.focus();
+          left.replace_selection_with(gResult.join(' '));
+          left.update_stats();
+          left.selection.index += 1;
+        }
+        window.useY = () => {
+          console.log('Y', yResult.join(' '));
+          swal.close();
+          left.textarea_el.focus();
+          left.replace_selection_with(yResult.join(' '));
+          left.update_stats();
+          left.selection.index += 1;
+        }
+        window.useB = () => {
+          console.log('B', bResult.join(' '));
+          swal.close();
+          left.textarea_el.focus();
+          left.replace_selection_with(bResult.join(' '));
+          left.update_stats();
+          left.selection.index += 1;
         }
         swal.hideLoading();
         swal.close();

@@ -64,11 +64,14 @@ body #operator { background:var(--background); color:var(--b_inv); }
 }
 
 .use-button {
-  padding: 3px 5px;
-  border: none;
   height: 20px;
   width: 60px;
   flex-shrink: 0;
+  border: 1px solid;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
 }
 
 .f-title {

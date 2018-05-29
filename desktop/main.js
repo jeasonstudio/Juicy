@@ -33,18 +33,19 @@ app.win = null;
 
 app.on('ready', () => {
   app.win = new BrowserWindow({
-    width: 1600, // 880,
+    width: 880, // 880,
     height: 540,
     backgroundColor: "#000",
     minWidth: 587,
     minHeight: 540,
-    frame: false,
+    // frame: false,
     autoHideMenuBar: true,
+    titleBarStyle: 'hidden',
     icon: __dirname + '/icon.ico'
   })
 
   app.win.loadURL(`file://${__dirname}/sources/index.html`)
-  // app.win.toggleDevTools();
+  app.win.toggleDevTools();
 
   app.win.on('closed', () => {
     win = null
