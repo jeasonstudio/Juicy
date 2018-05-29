@@ -27,10 +27,12 @@
 <body>
   <script>
     const { webFrame } = require('electron');
+    // const PNotify = require('pnotify').default;
     const { youdao, baidu, google } = require('translation.js');
-    const PNotify = require('pnotify').default;
-    console.log(PNotify);
-    
+    const Swal = require('sweetalert2');
+    window.swal = Swal;
+    // const Popper = require('popper.js');
+    // window.Popper = Popper;
 
     const { dialog, app } = require('electron').remote;
     const fs = require('fs');

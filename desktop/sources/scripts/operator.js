@@ -1,12 +1,10 @@
-function Operator()
-{
+function Operator() {
   this.el = document.createElement('input'); this.el.id = "operator";
   this.is_active = false;
 
   this.el.addEventListener("keyup", (e) => { left.operator.on_change(e); });
 
-  this.start = function()
-  {
+  this.start = function () {
     console.log("started");
     left.controller.set("operator");
     this.is_active = true;
@@ -18,13 +16,21 @@ function Operator()
     left.refresh();
   }
 
-  this.stop = function()
-  {
-    if(!this.is_active){ return; }
-    
-    console.log("stopped")
+  this.openUrl = function (url) {
+    console.log(url);
+  }
+
+  this.stop = function () {
+    if (!this.is_active) { return; }
+
+    console.log("stopped");
     left.controller.set("default");
     this.is_active = false;
+
+    var contentCommand = this.el.value.split(' ');
+    if (contentCommand[0] === 'open') {
+      this.openUrl(contentCommand[1]);
+    }
 
     this.el.value = "";
     this.el.blur();
@@ -34,60 +40,55 @@ function Operator()
     left.refresh();
   }
 
-  this.on_change = function(e)
-  {
-    if(!this.is_active){ return; }
+  this.on_change = function (e) {
+    if (!this.is_active) { return; }
 
     this.update();
 
-    if(e.key == "Enter" || e.code == "Enter"){
+    if (e.key == "Enter" || e.code == "Enter") {
       this.operate();
     }
   }
 
-  this.text = function()
-  {
+  this.text = function () {
     return left.textarea_el.value;
   }
 
-  this.update = function()
-  {
+  this.update = function () {
     this.el.className = this.is_active ? "active" : "inactive";
 
-    if(!this.is_active){ return; }
+    if (!this.is_active) { return; }
 
     var value = this.el.value;
     var target = value.split("=")[0];
     var operator = value.indexOf("=") > 0 ? value.split("=")[1] : "";
     var param = value.split("=").length > 2 ? value.split("=")[2] : "";
 
-    var starting_with = target.substr(target.length-1,1) == "-" ? true : false;
-    var ending_with = target.substr(0,1) == "-" ? true : false;
+    var starting_with = target.substr(target.length - 1, 1) == "-" ? true : false;
+    var ending_with = target.substr(0, 1) == "-" ? true : false;
 
-    if(target.length > 2){
-      var location = left.go_to_word(target,0,10,starting_with,ending_with);    
+    if (target.length > 2) {
+      var location = left.go_to_word(target, 0, 10, starting_with, ending_with);
     }
   }
 
-  this.select = function(query)
-  {
-    if(query.length < 3){ return []; }
-    if(this.text().indexOf(query) == -1){ return []; }
+  this.select = function (query) {
+    if (query.length < 3) { return []; }
+    if (this.text().indexOf(query) == -1) { return []; }
 
     var parts = this.text().split(query);
 
     return parts;
   }
 
-  this.operate = function()
-  {
+  this.operate = function () {
     var value = this.el.value;
 
-    if(value.indexOf("=") > -1){
+    if (value.indexOf("=") > -1) {
       var target = value.split("=")[0].trim();
       var param = value.split("=")[1].trim();
       this.update();
-      left.replace_selection_with(param);  
+      left.replace_selection_with(param);
     }
 
     this.stop();

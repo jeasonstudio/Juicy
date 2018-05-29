@@ -1,5 +1,17 @@
 // const fs = require('fs')
 
+function renderResult(gResult, yResult, bResult) {
+  let html = '';
+  html += `<div class="f-container">`;
+  html += `<h2 class="f-title g-title">谷歌翻译结果:</h2>`;
+  html += `<div class="g-res t-res"><span>${gResult}</span><button class="use-button" type="submit" onclick="useThis()">Use It</button></div>`
+  html += `<h2 class="f-title y-title">有道翻译结果:</h2>`;
+  html += `<div class="y-res t-res"><span>${yResult}</span><button class="use-button" type="submit" onclick="useThis()">Use It</button></div>`
+  html += `<h2 class="f-title b-title">百度翻译结果:</h2>`;
+  html += `<div class="b-res t-res"><span>${bResult}</span><button class="use-button" type="submit" onclick="useThis()">Use It</button></div>`
+  html += `</div>`
+  return html    
+}
 function Left() {
   this.theme = new Theme();
   this.controller = new Controller();
@@ -159,16 +171,66 @@ function Left() {
     }
   }
 
-  this.select_translate = function () {
+  this.select_translate = async function () {
     const text = left.get_selections();
-    PNotify.notice('Check me out! I\'m a notice.');
-    
+    // swal({
+    //   title: '<i>HTML</i> <u>example</u>',
+    //   type: 'info',
+    //   html:
+    //     'You can use <b>bold text</b>, ' +
+    //     '<a href="//github.com">links</a> ' +
+    //     'and other HTML tags',
+    //   showCloseButton: true,
+    //   showCancelButton: true,
+    //   focusConfirm: false,
+    //   confirmButtonText:
+    //     '<i class="fa fa-thumbs-up"></i> Great!',
+    //   confirmButtonAriaLabel: 'Thumbs up, great!',
+    //   cancelButtonText:
+    //   '<i class="fa fa-thumbs-down"></i>',
+    //   cancelButtonAriaLabel: 'Thumbs down',
+    // })
     if (text === '') return;
-    // google.translate(text).then(result => {
+    swal({
+      title: '正在为你提供翻译...',
+      position: 'top-end',
+      onOpen: async () => {
+        swal.showLoading()
+        const [{ result: gResult }, { result: yResult }, { result: bResult }] = await Promise.all([
+          google.translate(text),
+          youdao.translate(text),
+          baidu.translate(text)
+        ])
+        window.transs = (a) => {
+          console.log(a);
+        }
+        swal.hideLoading();
+        swal.close();
+        swal({
+          title: '翻译结果',
+          html: renderResult(
+            gResult.join(''), yResult.join(''), bResult.join('')
+          ),
+          position: 'top-end',
+          showCloseButton: true,
+          showCancelButton: false,
+          showConfirmButton: false
+        })
+      }
+    })
+
+    
+    // .then(result => {
     //   console.log(result) // result 的数据结构见下文
     //   left.replace_selection_with(result.result);
     //   left.update_stats();
     //   left.selection.index += 1;
+    // })
+    // youdao.translate(text).then(result => {
+    //   console.log(result)
+    // })
+    // baidu.translate(text).then(result => {
+    //   console.log(result)
     // })
   }
 
