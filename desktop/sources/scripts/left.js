@@ -9,6 +9,8 @@ function renderResult(gResult, yResult, bResult) {
   html += `<div class="y-res t-res"><span>${yResult}</span><div class="use-button" type="submit" onclick="useY()">Use It</div></div>`
   html += `<h2 class="f-title b-title">百度翻译结果:</h2>`;
   html += `<div class="b-res t-res"><span>${bResult}</span><div class="use-button" type="submit" onclick="useB()">Use It</div></div>`
+  html += `<h2 class="f-title b-title">自定义结果:</h2>`;
+  html += `<div class="b-res t-res"><input id="own-input-trans" /><div class="use-button" type="submit" onclick="useO()">Use It</div></div>`
   html += `</div>`
   return html
 }
@@ -173,23 +175,8 @@ function Left() {
 
   this.select_translate = async function () {
     const text = left.get_selections();
-    // swal({
-    //   title: '<i>HTML</i> <u>example</u>',
-    //   type: 'info',
-    //   html:
-    //     'You can use <b>bold text</b>, ' +
-    //     '<a href="//github.com">links</a> ' +
-    //     'and other HTML tags',
-    //   showCloseButton: true,
-    //   showCancelButton: true,
-    //   focusConfirm: false,
-    //   confirmButtonText:
-    //     '<i class="fa fa-thumbs-up"></i> Great!',
-    //   confirmButtonAriaLabel: 'Thumbs up, great!',
-    //   cancelButtonText:
-    //   '<i class="fa fa-thumbs-down"></i>',
-    //   cancelButtonAriaLabel: 'Thumbs down',
-    // })
+    console.log(left.selection)
+
     if (text === '') return;
     swal({
       title: '正在为你提供翻译...',
@@ -222,6 +209,15 @@ function Left() {
           swal.close();
           left.textarea_el.focus();
           left.replace_selection_with(bResult.join(' '));
+          left.update_stats();
+          left.selection.index += 1;
+        }
+        window.useO = () => {
+          let ores = document.getElementById('own-input-trans').value;
+          console.log('O', ores);
+          swal.close();
+          left.textarea_el.focus();
+          left.replace_selection_with(ores);
           left.update_stats();
           left.selection.index += 1;
         }
