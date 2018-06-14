@@ -86,3 +86,16 @@ Left is a simple, minimalist, open-source and cross-platform text editor.
 - Download additional [themes](https://github.com/hundredrabbits/Themes).
 - Support this project through [Patreon](https://patreon.com/100).
 - See the [License](LICENSE.md) file for license rights and limitations (MIT).
+
+## Todos
+
+* [x] 翻译划词
+* [x] 自定义译文
+* [ ] 使用共享译文
+* [x] 替换原文
+* [x] 译文切换
+* [ ] 记忆译文
+* [ ] 推荐译文
+* [ ] 生词簿
+* [ ] 译文打分
+* [x] 保存文件

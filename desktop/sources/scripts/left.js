@@ -14,6 +14,31 @@ function renderResult(gResult, yResult, bResult) {
   html += `</div>`
   return html
 }
+
+window.translateMap = {};
+
+/**
+ * 翻译 => 原文哈希 map
+ *
+ * @param {String} t 翻译
+ * @param {String} o 原文
+ */
+function addTranslate(t, o) {
+  if (!window.translateMap) window.translateMap = {};
+  window.translateMap[t] = o;
+}
+
+/**
+ * 根据翻译获取原文
+ *
+ * @param {String} t 翻译
+ * @returns {String} 原文
+ */
+function getOriginFromMap(t) {
+  if (!window.translateMap) window.translateMap = {};
+  return window.translateMap[t]
+}
+
 function Left() {
   this.theme = new Theme();
   this.controller = new Controller();
@@ -92,6 +117,7 @@ function Left() {
     this.controller.add("default", "Select", "Select Autocomplete", () => { left.select_autocomplete(); }, "Tab");
     this.controller.add("default", "Select", "Select Synonym", () => { left.select_synonym(); }, "Shift+Tab");
     this.controller.add("default", "Select", "Select Translate", () => { left.select_translate(); }, "CmdOrCtrl+T");
+    this.controller.add("default", "Select", "Translate To Original", () => { left.translate_to_original(); }, "CmdOrCtrl+Y");
 
     this.controller.add("default", "Navigation", "Next Marker", () => { left.navi.next(); }, "CmdOrCtrl+]");
     this.controller.add("default", "Navigation", "Prev Marker", () => { left.navi.prev(); }, "CmdOrCtrl+[");
@@ -173,9 +199,23 @@ function Left() {
     }
   }
 
+  this.translate_to_original = function () {
+    const textObj = left.get_selections();
+    const text = (textObj || {}).text; 
+    if (text === '') return;
+
+    const original = getOriginFromMap(text);
+    if (!original) return;
+
+    // left.textarea_el.focus();
+    left.replace_selection_with(original);
+    left.update_stats();
+    left.selection.index += 1;
+  }
+
   this.select_translate = async function () {
-    const text = left.get_selections();
-    console.log(left.selection)
+    const textObj = left.get_selections();
+    const text = (textObj || {}).text;
 
     if (text === '') return;
     swal({
@@ -193,6 +233,7 @@ function Left() {
           swal.close();
           left.textarea_el.focus();
           left.replace_selection_with(gResult.join(' '));
+          addTranslate(gResult.join(' '), text);
           left.update_stats();
           left.selection.index += 1;
         }
@@ -201,6 +242,7 @@ function Left() {
           swal.close();
           left.textarea_el.focus();
           left.replace_selection_with(yResult.join(' '));
+          addTranslate(yResult.join(' '), text);
           left.update_stats();
           left.selection.index += 1;
         }
@@ -209,6 +251,7 @@ function Left() {
           swal.close();
           left.textarea_el.focus();
           left.replace_selection_with(bResult.join(' '));
+          addTranslate(bResult.join(' '), text);
           left.update_stats();
           left.selection.index += 1;
         }
@@ -218,6 +261,7 @@ function Left() {
           swal.close();
           left.textarea_el.focus();
           left.replace_selection_with(ores);
+          addTranslate(ores, text);
           left.update_stats();
           left.selection.index += 1;
         }
@@ -235,20 +279,6 @@ function Left() {
         })
       }
     })
-
-    
-    // .then(result => {
-    //   console.log(result) // result 的数据结构见下文
-    //   left.replace_selection_with(result.result);
-    //   left.update_stats();
-    //   left.selection.index += 1;
-    // })
-    // youdao.translate(text).then(result => {
-    //   console.log(result)
-    // })
-    // baidu.translate(text).then(result => {
-    //   console.log(result)
-    // })
   }
 
   this.refresh = function () {
