@@ -4,13 +4,13 @@ function renderResult(gResult, yResult, bResult) {
   let html = '';
   html += `<div class="f-container">`;
   html += `<h2 class="f-title g-title">谷歌翻译结果:</h2>`;
-  html += `<div class="g-res t-res"><span>${gResult}</span><div class="use-button" type="submit" onclick="useG()">Use It</div></div>`
+  html += `<div class="g-res t-res"><span>${gResult}</span><div class="use-button" type="submit" onclick="useG()">&radic;</div></div>`
   html += `<h2 class="f-title y-title">有道翻译结果:</h2>`;
-  html += `<div class="y-res t-res"><span>${yResult}</span><div class="use-button" type="submit" onclick="useY()">Use It</div></div>`
+  html += `<div class="y-res t-res"><span>${yResult}</span><div class="use-button" type="submit" onclick="useY()">&radic;</div></div>`
   html += `<h2 class="f-title b-title">百度翻译结果:</h2>`;
-  html += `<div class="b-res t-res"><span>${bResult}</span><div class="use-button" type="submit" onclick="useB()">Use It</div></div>`
+  html += `<div class="b-res t-res"><span>${bResult}</span><div class="use-button" type="submit" onclick="useB()">&radic;</div></div>`
   html += `<h2 class="f-title b-title">自定义结果:</h2>`;
-  html += `<div class="b-res t-res"><input id="own-input-trans" /><div class="use-button" type="submit" onclick="useO()">Use It</div></div>`
+  html += `<div class="b-res t-res"><input id="own-input-trans" /><div class="use-button" type="submit" onclick="useO()">&radic;</div></div>`
   html += `</div>`
   return html
 }
