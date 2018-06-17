@@ -36,6 +36,25 @@ function Project()
     setTimeout(() => { left.project.next(); },200);
   }
 
+  this.openStart = function() {
+    if(this.has_changes()){
+      this.alert()
+      return;
+    }
+    
+    var paths = [path.resolve(__dirname, './start.txt')];
+    // console.log('--------------------', paths);
+    
+    // this.add(paths);
+
+    if(!paths){ console.log("Nothing to load"); return; }
+
+    for(id in paths){
+      this.add(paths[id]);
+    }
+    setTimeout(() => { left.project.next(); },200);
+  }
+
   this.save = function()
   {
     var path = this.paths[this.index]

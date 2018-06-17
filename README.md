@@ -1,88 +1,57 @@
-# Left
+<h1 align="center">Juicy</h1>
 
-Left is a simple open-source distractionless writing application created to help organize ideas. 
+## 简介
 
-<img src='https://raw.githubusercontent.com/hundredrabbits/Left/master/PREVIEW.jpg' width="600"/>
+Juicy 是一个简约，开源和跨平台的 `英文文献翻译工具`
 
-## Guide
+![demo](./demo.jpg)
 
-Left is a simple, minimalist, open-source and cross-platform text editor. 
+- 通过以 `＃`，`##` 或 `--` 开始行来创建标记
+- 通过拖动文本文件或使用 `CmdOrCtrl O` 打开文本文件
+- 按下 `CmdOrCtrl K` 启用只读模式
+- 按 `shift tab` 变为所选单词的同义词
 
-- Create markers by beginning lines with `#`, `##` or `--`.
-- Open a text file by dragging it, or with `ctrl o`.
-- Highlight some text and press `ctrl k` to enable the speed reader.
-- Press `tab` to auto-complete a previously used, or common, word.
-- Press `shift tab` to scroll through the selected word's synonyms.
+### 细节
 
-### Details
-
-- `L`, stands for Lines.
-- `W`, stands for Words.
-- `V`, stands for Vocabulary, or unique words.
-- `C`, stands for Characters.
+- `L` 代表行
+- `W` 代表单词
+- `V` 代表词汇或独特的单词
+- `C` 代表字符
 
 ## Controls
 
-## default Mode
+### 文件
 
-### File
-- New: `CmdOrCtrl+N`
-- Open: `CmdOrCtrl+O`
-- Save: `CmdOrCtrl+S`
-- Save As: `CmdOrCtrl+Shift+S`
-- Discard Changes: `CmdOrCtrl+D`
-- Close File: `CmdOrCtrl+W`
-- Force Close: `CmdOrCtrl+Shift+W`
+- 新建: `CmdOrCtrl+N`
+- 打开: `CmdOrCtrl+O`
+- 储存: `CmdOrCtrl+S`
+- 储存为: `CmdOrCtrl+Shift+S`
+- 放弃更改: `CmdOrCtrl+D`
+- 关闭文件: `CmdOrCtrl+W`
+- 强制关闭: `CmdOrCtrl+Shift+W`
 
-### Select
-- Select Autocomplete: `Tab`
-- Select Synonym: `Shift+Tab`
+### 选取
 
-### Navigation
-- Next Marker: `CmdOrCtrl+]`
-- Prev Marker: `CmdOrCtrl+[`
-- Next File: `CmdOrCtrl+Shift+]`
-- Prev File: `CmdOrCtrl+Shift+[`
-- Find: `CmdOrCtrl+F`
+- 同义词: `Shift+Tab`
+- 选中翻译: `CmdOrCtrl+T`
+- 选中复原: `CmdOrCtrl+Y`
 
-### View
-- Inc Zoom: `CmdOrCtrl+Plus`
-- Dec Zoom: `CmdOrCtrl+-`
-- Reset Zoom: `CmdOrCtrl+0`
+### 导航
 
-### Mode
-- Reader: `CmdOrCtrl+K`
-- Operator: `CmdOrCtrl+F`
-- Insert: `CmdOrCtrl+I`
+- 下一处标记: `CmdOrCtrl+]`
+- 上一处标记: `CmdOrCtrl+[`
+- 下一个文件: `CmdOrCtrl+Shift+]`
+- 上一个文件: `CmdOrCtrl+Shift+[`
 
-## reader Mode
+### 视图
+- 放大: `CmdOrCtrl+Plus`
+- 缩小: `CmdOrCtrl+-`
+- 还原: `CmdOrCtrl+0`
 
-### Reader
-- Stop: `Esc`
+### 模式
+- 只读模式: `CmdOrCtrl+K`
+- 网页读取: `CmdOrCtrl+F`
 
-## operator Mode
+## License
 
-### Operator
-- Stop: `Esc`
-
-## insert Mode
-
-### Insert
-- Date: `CmdOrCtrl+D`
-- Time: `CmdOrCtrl+T`
-- Path: `CmdOrCtrl+P`
-- Header: `CmdOrCtrl+H`
-- SubHeader: `CmdOrCtrl+Shift+H`
-- Comment: `CmdOrCtrl+/`
-- Line: `CmdOrCtrl+L`
-
-### Mode
-- Stop: `Esc`
-
-<img src='https://cdn.rawgit.com/hundredrabbits/Left/master/LAYOUT.svg?v=1' width="600"/>
-
-## Extras
-
-- Download additional [themes](https://github.com/hundredrabbits/Themes).
-- Support this project through [Patreon](https://patreon.com/100).
-- See the [License](LICENSE.md) file for license rights and limitations (MIT).
+See the [License](LICENSE.md) file for license rights and limitations (MIT).

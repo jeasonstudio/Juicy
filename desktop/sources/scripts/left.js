@@ -111,61 +111,62 @@ function Left() {
     this.textarea_el.focus();
 
     this.textarea_el.value = this.splash();
+    // this.reset();
     this.textarea_el.setSelectionRange(0, 0);
 
-    this.controller.add("default", "*", "About", () => { require('electron').shell.openExternal('https://github.com/jeasonstudio/Juicy'); }, "CmdOrCtrl+,");
-    this.controller.add("default", "*", "Fullscreen", () => { app.toggle_fullscreen(); }, "CmdOrCtrl+Enter");
-    this.controller.add("default", "*", "Hide", () => { app.toggle_visible(); }, "CmdOrCtrl+H");
-    this.controller.add("default", "*", "Inspect", () => { app.inspect(); }, "CmdOrCtrl+.");
-    this.controller.add("default", "*", "Documentation", () => { left.controller.docs(); }, "CmdOrCtrl+Esc");
-    this.controller.add("default", "*", "Reset", () => { left.theme.reset(); }, "CmdOrCtrl+Backspace");
-    this.controller.add("default", "*", "Quit", () => { left.project.quit(); }, "CmdOrCtrl+Q");
-    this.controller.add("default", "*", "Register", () => { left.register(); });
-    this.controller.add("default", "*", "Login", () => { left.login(); });
+    this.controller.add("default", "*", "关于", () => { require('electron').shell.openExternal('https://github.com/jeasonstudio/Juicy'); }, "CmdOrCtrl+,");
+    this.controller.add("default", "*", "全屏", () => { app.toggle_fullscreen(); }, "CmdOrCtrl+Enter");
+    this.controller.add("default", "*", "隐藏", () => { app.toggle_visible(); }, "CmdOrCtrl+H");
+    this.controller.add("default", "*", "调试", () => { app.inspect(); }, "CmdOrCtrl+.");
+    this.controller.add("default", "*", "文档", () => { left.controller.docs(); }, "CmdOrCtrl+Esc");
+    this.controller.add("default", "*", "重置", () => { left.theme.reset(); }, "CmdOrCtrl+Backspace");
+    this.controller.add("default", "*", "退出", () => { left.project.quit(); }, "CmdOrCtrl+Q");
+    this.controller.add("default", "*", "注册", () => { left.register(); });
+    this.controller.add("default", "*", "登录", () => { left.login(); });
 
-    this.controller.add("default", "File", "New", () => { left.project.new(); }, "CmdOrCtrl+N");
-    this.controller.add("default", "File", "Open", () => { left.project.open(); }, "CmdOrCtrl+O");
-    this.controller.add("default", "File", "Save", () => { left.project.save(); }, "CmdOrCtrl+S");
-    this.controller.add("default", "File", "Save As", () => { left.project.save_as(); }, "CmdOrCtrl+Shift+S");
-    this.controller.add("default", "File", "Discard Changes", () => { left.project.discard(); }, "CmdOrCtrl+D");
-    this.controller.add("default", "File", "Close File", () => { left.project.close(); }, "CmdOrCtrl+W");
-    this.controller.add("default", "File", "Force Close", () => { left.project.force_close(); }, "CmdOrCtrl+Shift+W");
-    this.controller.add("default", "File", "Get Books", () => { left.getBooks(); });
+    this.controller.add("default", "File", "新建", () => { left.project.new(); }, "CmdOrCtrl+N");
+    this.controller.add("default", "File", "打开", () => { left.project.open(); }, "CmdOrCtrl+O");
+    this.controller.add("default", "File", "储存", () => { left.project.save(); }, "CmdOrCtrl+S");
+    this.controller.add("default", "File", "储存为", () => { left.project.save_as(); }, "CmdOrCtrl+Shift+S");
+    this.controller.add("default", "File", "撤销修改", () => { left.project.discard(); }, "CmdOrCtrl+D");
+    this.controller.add("default", "File", "关闭文件", () => { left.project.close(); }, "CmdOrCtrl+W");
+    this.controller.add("default", "File", "强制关闭", () => { left.project.force_close(); }, "CmdOrCtrl+Shift+W");
+    this.controller.add("default", "File", "打开生词本", () => { left.getBooks(); });
 
-    this.controller.add_role("default", "Edit", "undo");
-    this.controller.add_role("default", "Edit", "redo");
-    this.controller.add_role("default", "Edit", "cut");
-    this.controller.add_role("default", "Edit", "copy");
-    this.controller.add_role("default", "Edit", "paste");
-    this.controller.add_role("default", "Edit", "delete");
-    this.controller.add_role("default", "Edit", "selectall");
+    this.controller.add_role("default", "Edit", "撤销");
+    this.controller.add_role("default", "Edit", "重做");
+    this.controller.add_role("default", "Edit", "剪切");
+    this.controller.add_role("default", "Edit", "复制");
+    this.controller.add_role("default", "Edit", "粘贴");
+    this.controller.add_role("default", "Edit", "删除");
+    this.controller.add_role("default", "Edit", "全选");
 
-    this.controller.add("default", "Select", "Select Autocomplete", () => { left.select_autocomplete(); }, "Tab");
-    this.controller.add("default", "Select", "Select Synonym", () => { left.select_synonym(); }, "Shift+Tab");
-    this.controller.add("default", "Select", "Select Translate", () => { left.select_translate(); }, "CmdOrCtrl+T");
-    this.controller.add("default", "Select", "Translate To Original", () => { left.translate_to_original(); }, "CmdOrCtrl+Y");
+    // this.controller.add("default", "Select", "Select Autocomplete", () => { left.select_autocomplete(); }, "Tab");
+    this.controller.add("default", "Select", "同义词", () => { left.select_synonym(); }, "Shift+Tab");
+    this.controller.add("default", "Select", "选中翻译", () => { left.select_translate(); }, "CmdOrCtrl+T");
+    this.controller.add("default", "Select", "选中复原", () => { left.translate_to_original(); }, "CmdOrCtrl+Y");
 
-    this.controller.add("default", "Navigation", "Next Marker", () => { left.navi.next(); }, "CmdOrCtrl+]");
-    this.controller.add("default", "Navigation", "Prev Marker", () => { left.navi.prev(); }, "CmdOrCtrl+[");
-    this.controller.add("default", "Navigation", "Next File", () => { left.project.next(); }, "CmdOrCtrl+Shift+]");
-    this.controller.add("default", "Navigation", "Prev File", () => { left.project.prev(); }, "CmdOrCtrl+Shift+[");
-    this.controller.add("default", "Navigation", "Find", () => { left.operator.start(); }, "CmdOrCtrl+F");
+    this.controller.add("default", "Navigation", "下一处标记", () => { left.navi.next(); }, "CmdOrCtrl+]");
+    this.controller.add("default", "Navigation", "上一处标记", () => { left.navi.prev(); }, "CmdOrCtrl+[");
+    this.controller.add("default", "Navigation", "下一个文件", () => { left.project.next(); }, "CmdOrCtrl+Shift+]");
+    this.controller.add("default", "Navigation", "上一个文件", () => { left.project.prev(); }, "CmdOrCtrl+Shift+[");
+    // this.controller.add("default", "Navigation", "Find", () => { left.operator.start(); }, "CmdOrCtrl+F");
 
-    this.controller.add("default", "View", "Inc Zoom", () => { left.options.set_zoom(left.options.zoom + 0.1) }, "CmdOrCtrl+Plus");
-    this.controller.add("default", "View", "Dec Zoom", () => { left.options.set_zoom(left.options.zoom - 0.1) }, "CmdOrCtrl+-");
-    this.controller.add("default", "View", "Reset Zoom", () => { left.options.set_zoom(1) }, "CmdOrCtrl+0");
+    this.controller.add("default", "View", "放大", () => { left.options.set_zoom(left.options.zoom + 0.1) }, "CmdOrCtrl+Plus");
+    this.controller.add("default", "View", "缩小", () => { left.options.set_zoom(left.options.zoom - 0.1) }, "CmdOrCtrl+-");
+    this.controller.add("default", "View", "还原", () => { left.options.set_zoom(1) }, "CmdOrCtrl+0");
 
-    this.controller.add("default", "Mode", "Reader", () => { left.reader.start(); }, "CmdOrCtrl+K");
-    this.controller.add("default", "Mode", "Operator", () => { left.operator.start(); }, "CmdOrCtrl+F");
-    this.controller.add("default", "Mode", "Insert", () => { left.insert.start(); }, "CmdOrCtrl+I");
+    this.controller.add("default", "Mode", "只读", () => { left.reader.start(); }, "CmdOrCtrl+K");
+    this.controller.add("default", "Mode", "网页", () => { left.operator.start(); }, "CmdOrCtrl+F");
+    // this.controller.add("default", "Mode", "Insert", () => { left.insert.start(); }, "CmdOrCtrl+I");
 
-    this.controller.add("reader", "*", "About", () => { require('electron').shell.openExternal('https://github.com/jeasonstudio/Juicy'); }, "CmdOrCtrl+,");
-    this.controller.add("reader", "*", "Fullscreen", () => { app.toggle_fullscreen(); }, "CmdOrCtrl+Enter");
-    this.controller.add("reader", "*", "Hide", () => { app.toggle_visible(); }, "CmdOrCtrl+H");
-    this.controller.add("reader", "*", "Inspect", () => { app.inspect(); }, "CmdOrCtrl+.");
-    this.controller.add("reader", "*", "Documentation", () => { left.controller.docs(); }, "CmdOrCtrl+Esc");
-    this.controller.add("reader", "*", "Reset", () => { left.theme.reset(); }, "CmdOrCtrl+Backspace");
-    this.controller.add("reader", "*", "Quit", () => { left.project.quit(); }, "CmdOrCtrl+Q");
+    this.controller.add("reader", "*", "关于", () => { require('electron').shell.openExternal('https://github.com/jeasonstudio/Juicy'); }, "CmdOrCtrl+,");
+    this.controller.add("reader", "*", "全屏", () => { app.toggle_fullscreen(); }, "CmdOrCtrl+Enter");
+    this.controller.add("reader", "*", "隐藏", () => { app.toggle_visible(); }, "CmdOrCtrl+H");
+    this.controller.add("reader", "*", "调试", () => { app.inspect(); }, "CmdOrCtrl+.");
+    this.controller.add("reader", "*", "文档", () => { left.controller.docs(); }, "CmdOrCtrl+Esc");
+    this.controller.add("reader", "*", "重置", () => { left.theme.reset(); }, "CmdOrCtrl+Backspace");
+    this.controller.add("reader", "*", "退出", () => { left.project.quit(); }, "CmdOrCtrl+Q");
     this.controller.add("reader", "Reader", "Stop", () => { left.reader.stop(); }, "Esc");
 
     this.controller.add("operator", "*", "About", () => { require('electron').shell.openExternal('https://github.com/jeasonstudio/Juicy'); }, "CmdOrCtrl+,");
@@ -706,11 +707,13 @@ function Left() {
     // if (time > 600) { return "Good afternoon."; }
     // if (time < 350) { return "Good morning."; }
     // return "Good day.";
-    return word || 'Hello World.\nHello World.'
+    // return word || 'Hello World.\nHello World.'
+    return '';
   }
 
   this.reset = function () {
     left.textarea_el.value = left.splash();
+    // left.textarea_el.value = left.project.openStart();
     left.dictionary.update();
     left.refresh();
   }
