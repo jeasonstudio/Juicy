@@ -8,7 +8,7 @@
     "2": {
       "name": "jeason",
       "password": "123",
-      "id": 2
+      "id": "2"
     },
     "3": {
       "name": "zhoujing",
@@ -27,7 +27,7 @@
       "original": "Hello World."
     },
     {
-      "userId": 2,
+      "userId": "2",
       "translate": "xinveshi",
       "original": "Hello World."
     },
@@ -40,9 +40,25 @@
       "userId": "1",
       "translate": "你好，世界",
       "original": "Hello World."
+    },
+    {
+      "userId": "2",
+      "translate": "理所当然",
+      "original": "granted"
+    },
+    {
+      "userId": "2",
+      "translate": "授予",
+      "original": "granted"
+    },
+    {
+      "userId": "2",
+      "translate": "免费的",
+      "original": "free of charge"
     }
   ],
   "book": {
-    "1": "\nWorld\t世界\nWorld\t世界\nWorld\t世界\nHello World.\t你好，世界\nHello World.\t你好，世界。\nHello World.\t你好，世界"
+    "1": "\nWorld\t世界\nWorld\t世界\nWorld\t世界\nHello World.\t你好，世界\nHello World.\t你好，世界。\nHello World.\t你好，世界",
+    "2": "\ngranted\t理所当然\ngranted\t授予\nfree of charge\t免费的"
   }
 }

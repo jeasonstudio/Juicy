@@ -113,7 +113,7 @@ function Left() {
     this.textarea_el.value = this.splash();
     this.textarea_el.setSelectionRange(0, 0);
 
-    this.controller.add("default", "*", "About", () => { require('electron').shell.openExternal('https://github.com/hundredrabbits/Left'); }, "CmdOrCtrl+,");
+    this.controller.add("default", "*", "About", () => { require('electron').shell.openExternal('https://github.com/jeasonstudio/Juicy'); }, "CmdOrCtrl+,");
     this.controller.add("default", "*", "Fullscreen", () => { app.toggle_fullscreen(); }, "CmdOrCtrl+Enter");
     this.controller.add("default", "*", "Hide", () => { app.toggle_visible(); }, "CmdOrCtrl+H");
     this.controller.add("default", "*", "Inspect", () => { app.inspect(); }, "CmdOrCtrl+.");
@@ -159,7 +159,7 @@ function Left() {
     this.controller.add("default", "Mode", "Operator", () => { left.operator.start(); }, "CmdOrCtrl+F");
     this.controller.add("default", "Mode", "Insert", () => { left.insert.start(); }, "CmdOrCtrl+I");
 
-    this.controller.add("reader", "*", "About", () => { require('electron').shell.openExternal('https://github.com/hundredrabbits/Left'); }, "CmdOrCtrl+,");
+    this.controller.add("reader", "*", "About", () => { require('electron').shell.openExternal('https://github.com/jeasonstudio/Juicy'); }, "CmdOrCtrl+,");
     this.controller.add("reader", "*", "Fullscreen", () => { app.toggle_fullscreen(); }, "CmdOrCtrl+Enter");
     this.controller.add("reader", "*", "Hide", () => { app.toggle_visible(); }, "CmdOrCtrl+H");
     this.controller.add("reader", "*", "Inspect", () => { app.inspect(); }, "CmdOrCtrl+.");
@@ -168,7 +168,7 @@ function Left() {
     this.controller.add("reader", "*", "Quit", () => { left.project.quit(); }, "CmdOrCtrl+Q");
     this.controller.add("reader", "Reader", "Stop", () => { left.reader.stop(); }, "Esc");
 
-    this.controller.add("operator", "*", "About", () => { require('electron').shell.openExternal('https://github.com/hundredrabbits/Left'); }, "CmdOrCtrl+,");
+    this.controller.add("operator", "*", "About", () => { require('electron').shell.openExternal('https://github.com/jeasonstudio/Juicy'); }, "CmdOrCtrl+,");
     this.controller.add("operator", "*", "Fullscreen", () => { app.toggle_fullscreen(); }, "CmdOrCtrl+Enter");
     this.controller.add("operator", "*", "Hide", () => { app.toggle_visible(); }, "CmdOrCtrl+H");
     this.controller.add("operator", "*", "Inspect", () => { app.inspect(); }, "CmdOrCtrl+.");
@@ -176,7 +176,7 @@ function Left() {
     this.controller.add("operator", "*", "Reset", () => { left.theme.reset(); }, "CmdOrCtrl+Backspace");
     this.controller.add("operator", "*", "Quit", () => { left.project.quit(); }, "CmdOrCtrl+Q");
 
-    this.controller.add("insert", "*", "About", () => { require('electron').shell.openExternal('https://github.com/hundredrabbits/Left'); }, "CmdOrCtrl+,");
+    this.controller.add("insert", "*", "About", () => { require('electron').shell.openExternal('https://github.com/jeasonstudio/Juicy'); }, "CmdOrCtrl+,");
     this.controller.add("insert", "*", "Fullscreen", () => { app.toggle_fullscreen(); }, "CmdOrCtrl+Enter");
     this.controller.add("insert", "*", "Hide", () => { app.toggle_visible(); }, "CmdOrCtrl+H");
     this.controller.add("insert", "*", "Inspect", () => { app.inspect(); }, "CmdOrCtrl+.");
@@ -221,7 +221,8 @@ function Left() {
       text: '请输入用户名'
     }, {
       title: '注册',
-      text: '请输入密码'
+      text: '请输入密码',
+      input: 'password'
     }]).then(({ value }) => {
       const userId = left.api.register({ name: value[0], password: value[1] });
       window.userInfo = left.api.getUserInfo({ userId });
