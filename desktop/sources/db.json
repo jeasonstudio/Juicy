@@ -1,1 +1,21 @@
-{"user":{"1":{"name":"jes","password":"123"}}}
+{
+  "user": {
+    "1": {
+      "name": "jes",
+      "password": "123",
+      "id": "1"
+    }
+  },
+  "share": [
+    {
+      "userId": "1",
+      "translate": "你好，世界",
+      "original": "Hello World."
+    },
+    {
+      "userId": "1",
+      "translate": "测试一下",
+      "original": "Hello World."
+    }
+  ]
+}

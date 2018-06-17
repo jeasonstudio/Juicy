@@ -1,16 +1,22 @@
 // const fs = require('fs')
 
-function renderResult(gResult, yResult, bResult) {
+function renderResult(gResult, yResult, bResult, shareList) {
   let html = '';
   html += `<div class="f-container">`;
   html += `<h2 class="f-title g-title">谷歌翻译结果:</h2>`;
-  html += `<div class="g-res t-res"><span>${gResult}</span><div class="use-button" type="submit" onclick="useG()">&radic;</div></div>`
+  html += `<div class="g-res t-res"><span>${gResult}</span><span class="btn-list"><div class="use-button" type="submit" onclick="useG()">&radic;</div><div class="use-button" type="submit" id="share-sg" onclick="shareTranslate('share-sg', '${gResult}')">S</div></span></div>`
   html += `<h2 class="f-title y-title">有道翻译结果:</h2>`;
-  html += `<div class="y-res t-res"><span>${yResult}</span><div class="use-button" type="submit" onclick="useY()">&radic;</div></div>`
+  html += `<div class="y-res t-res"><span>${yResult}</span><span class="btn-list"><div class="use-button" type="submit" onclick="useY()">&radic;</div><div class="use-button" type="submit" id="share-sy" onclick="shareTranslate('share-sy', '${yResult}')">S</div></span></div>`
   html += `<h2 class="f-title b-title">百度翻译结果:</h2>`;
-  html += `<div class="b-res t-res"><span>${bResult}</span><div class="use-button" type="submit" onclick="useB()">&radic;</div></div>`
+  html += `<div class="b-res t-res"><span>${bResult}</span><span class="btn-list"><div class="use-button" type="submit" onclick="useB()">&radic;</div><div class="use-button" type="submit" id="share-sb" onclick="shareTranslate('share-sb', '${bResult}')">S</div></span></div>`
   html += `<h2 class="f-title b-title">自定义结果:</h2>`;
-  html += `<div class="b-res t-res"><input id="own-input-trans" /><div class="use-button" type="submit" onclick="useO()">&radic;</div></div>`
+  html += `<div class="b-res t-res"><input id="own-input-trans" /><span class="btn-list"><div class="use-button" type="submit" onclick="useO()">&radic;</div><div class="use-button" type="submit" id='share-sc' onclick="shareTranslate('share-sc')">S</div></span></div>`
+  if (shareList.length !== 0) {
+    html += `<h2 class="f-title b-title">共享结果:</h2>`;
+    shareList.forEach(({ user: { name }, translate }) => {
+      html += `<div class="b-res t-res"><span>${translate}  - by ${name}</span><span class="btn-list"><div class="use-button" type="submit" onclick="useShared('${translate}')">&radic;</div></span></div>`
+    })
+  }
   html += `</div>`
   return html
 }
@@ -306,6 +312,25 @@ function Left() {
       position: 'top-end',
       onOpen: async () => {
         swal.showLoading()
+
+        // 分享
+        window.shareTranslate = (btnId, text2) => {
+          if (!window.userInfo.id) {
+            throwErr('请先登录');
+            return;
+          }
+          if (!text2) {
+            text2 = document.getElementById('own-input-trans').value;
+          }
+          left.api.share({ userId: window.userInfo.id, translate: text2, original: text })
+          const theShareBtn = document.getElementById(btnId);
+          theShareBtn.style.background = '#43853d';
+          theShareBtn.style.color = '#fff';
+        }
+
+        // 获取分享列表
+        const shareList = left.api.getShare({ original: text });
+
         const [{ result: gResult }, { result: yResult }, { result: bResult }] = await Promise.all([
           google.translate(text),
           youdao.translate(text),
@@ -348,12 +373,21 @@ function Left() {
           left.update_stats();
           left.selection.index += 1;
         }
+        window.useShared = (translateShared) => {
+          console.log('S', translateShared);
+          swal.close();
+          left.textarea_el.focus();
+          left.replace_selection_with(translateShared);
+          addTranslate(translateShared, text);
+          left.update_stats();
+          left.selection.index += 1;
+        }
         swal.hideLoading();
         swal.close();
         swal({
           title: '翻译结果',
           html: renderResult(
-            gResult.join(''), yResult.join(''), bResult.join('')
+            gResult.join(''), yResult.join(''), bResult.join(''), shareList
           ),
           position: 'top-end',
           showCloseButton: true,

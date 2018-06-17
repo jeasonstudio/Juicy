@@ -52,6 +52,10 @@
       left.project.add(remote.process.argv[1]);
     }
 
+    const userId = login({ name: 'jes', password: '123' });
+    userInfo = getUserInfo({ userId });
+    userInfo.id = userId;
+
   </script>
 </body>
 

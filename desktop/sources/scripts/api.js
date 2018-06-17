@@ -7,7 +7,7 @@ if (!fs) {
 window.DB = null;
 
 var api = {
-  register, login, getUserInfo
+  register, login, getUserInfo, share, getShare
 }
 
 function throwErr (err) {
@@ -35,14 +35,14 @@ function aiKey (Obj) {
 
 function saveDb (db) {
   db = db || window.DB;
-  fs.writeFileSync(path.resolve(__dirname, './db.json'), JSON.stringify(db));
+  fs.writeFileSync(path.resolve(__dirname, './db.json'), JSON.stringify(db, null, 2));
 }
 
 function register ({ name, password }) {
   loadDb();
   const user = window.DB.user;
   if (Object.values(user).some(({ name: on }) => on === name)) {
-    throwErr('Name has been used');
+    throwErr('用户名已经被占用');
     return;
   }
   const newId = aiKey(window.DB.user);
@@ -58,7 +58,7 @@ function register ({ name, password }) {
   if (findr && findr[0]) {
     return findr[0];
   }
-  throwErr('Login failed');
+  throwErr('用户名/密码错误');
 }
 
 function getUserInfo ({ userId }) {
@@ -66,6 +66,30 @@ function getUserInfo ({ userId }) {
   if (user[userId]) {
     return user[userId];
   }
-  throwErr('Not Found Userid: ', userId);
+  throwErr('没有找到用户 Userid: ', userId);
 }
 
+function share ({ userId, translate, original }) {
+  const share = window.DB.share;
+  if (!userId || !translate || !original) {
+    throwErr('共享失败, 请确认翻译不为空');
+    return;
+  }
+  share.push({ userId, translate, original });
+  saveDb(window.DB);
+}
+
+function getShare ({ original: ooo }) {
+  if (!ooo) {
+    throwErr('先选择英文原文');
+    return;
+  }
+  const tshare = window.DB.share;
+  return tshare.filter(s => s.original === ooo)
+  .map(({ userId, translate }) => {
+    return {
+      user: getUserInfo({ userId }),
+      translate
+    }
+  })
+}

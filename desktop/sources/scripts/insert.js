@@ -10,7 +10,7 @@ function Insert() {
 
   this.stop = function () {
     left.controller.set("default");
-    left.textarea_el.setAttribute("readOnly", true);
+    // left.textarea_el.setAttribute("readOnly", true);
     this.is_active = false;
     left.refresh();
   }
