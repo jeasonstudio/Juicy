@@ -99,3 +99,12 @@ Left is a simple, minimalist, open-source and cross-platform text editor.
 * [ ] 生词簿
 * [ ] 译文打分
 * [x] 保存文件
+
+
+```
+{
+  user: { '[id]': { name, password } },
+  share: { '[id]': { userId, original, translated } }, // === custom translate
+  
+}
+```

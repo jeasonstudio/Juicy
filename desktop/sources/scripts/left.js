@@ -39,6 +39,19 @@ function getOriginFromMap(t) {
   return window.translateMap[t]
 }
 
+/**
+ * 记忆译文
+ * @param {String} oo 原文
+ */
+function memoryTrans (oo) {
+  if (!window.translateMap) return;
+  let findr = undefined;
+  Object.entries(window.translateMap).forEach(([t, o]) => {
+    if (o === oo) findr = t;
+  });
+  return findr;
+}
+
 function Left() {
   this.theme = new Theme();
   this.controller = new Controller();
@@ -97,6 +110,8 @@ function Left() {
     this.controller.add("default", "*", "Documentation", () => { left.controller.docs(); }, "CmdOrCtrl+Esc");
     this.controller.add("default", "*", "Reset", () => { left.theme.reset(); }, "CmdOrCtrl+Backspace");
     this.controller.add("default", "*", "Quit", () => { left.project.quit(); }, "CmdOrCtrl+Q");
+    this.controller.add("default", "*", "Register", () => { left.register(); });
+    this.controller.add("default", "*", "Login", () => { left.login(); });
 
     this.controller.add("default", "File", "New", () => { left.project.new(); }, "CmdOrCtrl+N");
     this.controller.add("default", "File", "Open", () => { left.project.open(); }, "CmdOrCtrl+O");
@@ -183,6 +198,14 @@ function Left() {
     this.refresh();
   }
 
+  this.register = function () {
+    console.log('reg');
+  }
+
+  this.login = function () {
+    console.log('login');
+  }
+
   this.select_autocomplete = function () {
     if (left.selection.word.trim() != "" && left.suggestion && left.suggestion.toLowerCase() != left.active_word().toLowerCase()) {
       left.autocomplete();
@@ -216,6 +239,14 @@ function Left() {
   this.select_translate = async function () {
     const textObj = left.get_selections();
     const text = (textObj || {}).text;
+    
+    const mem = memoryTrans(text);
+    if (!!mem) {
+      left.replace_selection_with(mem);
+      left.update_stats();
+      left.selection.index += 1;
+      return;
+    }
 
     if (text === '') return;
     swal({
@@ -563,7 +594,7 @@ function Left() {
     // if (time > 600) { return "Good afternoon."; }
     // if (time < 350) { return "Good morning."; }
     // return "Good day.";
-    return 'Hello World.'
+    return 'Hello World.\nHello World.'
   }
 
   this.reset = function () {
