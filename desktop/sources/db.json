@@ -9,6 +9,10 @@
       "name": "jeason",
       "password": "123",
       "id": 2
+    },
+    "3": {
+      "name": "zhoujing",
+      "password": "132"
     }
   },
   "share": [
@@ -26,9 +30,19 @@
       "userId": 2,
       "translate": "xinveshi",
       "original": "Hello World."
+    },
+    {
+      "userId": "1",
+      "translate": "你好，世界。",
+      "original": "Hello World."
+    },
+    {
+      "userId": "1",
+      "translate": "你好，世界",
+      "original": "Hello World."
     }
   ],
   "book": {
-    "1": "\nWorld\t世界\nWorld\t世界\nWorld\t世界\nHello World.\t你好，世界\nHello World.\t你好，世界。"
+    "1": "\nWorld\t世界\nWorld\t世界\nWorld\t世界\nHello World.\t你好，世界\nHello World.\t你好，世界。\nHello World.\t你好，世界"
   }
 }

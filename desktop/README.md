@@ -43,7 +43,6 @@ Left is a simple, minimalist, open-source and cross-platform text editor.
 - Prev Marker: `CmdOrCtrl+[`
 - Next File: `CmdOrCtrl+Shift+]`
 - Prev File: `CmdOrCtrl+Shift+[`
-- Find: `CmdOrCtrl+F`
 
 ### View
 - Inc Zoom: `CmdOrCtrl+Plus`
@@ -51,9 +50,9 @@ Left is a simple, minimalist, open-source and cross-platform text editor.
 - Reset Zoom: `CmdOrCtrl+0`
 
 ### Mode
-- Reader: `CmdOrCtrl+K`
-- Operator: `CmdOrCtrl+F`
-- Insert: `CmdOrCtrl+I`
+- 只读模式: `CmdOrCtrl+K`
+- 读网页: `CmdOrCtrl+F`
+
 
 ## reader Mode
 
@@ -108,3 +107,4 @@ Left is a simple, minimalist, open-source and cross-platform text editor.
 
 }
 ```
+
