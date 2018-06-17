@@ -15,6 +15,8 @@ function renderResult(gResult, yResult, bResult) {
   return html
 }
 
+window.userInfo = {};
+
 window.translateMap = {};
 
 /**
@@ -91,6 +93,8 @@ function Left() {
   this.textarea_el.setAttribute("autocapitalize", "off");
   this.textarea_el.setAttribute("spellcheck", "false");
   this.textarea_el.setAttribute("type", "text");
+
+  this.api = window.api;
 
   var left = this;
 
@@ -200,10 +204,57 @@ function Left() {
 
   this.register = function () {
     console.log('reg');
+    swal.mixin({
+      input: 'text',
+      confirmButtonText: 'Next &rarr;',
+      showCancelButton: true,
+      progressSteps: ['1', '2']
+    }).queue([{
+      title: '注册',
+      text: '请输入用户名'
+    }, {
+      title: '注册',
+      text: '请输入密码'
+    }]).then(({ value }) => {
+      const userId = left.api.register({ name: value[0], password: value[1] });
+      window.userInfo = left.api.getUserInfo({ userId });
+      window.userInfo.id = userId;
+      if (userId) {
+        swal({
+          type: 'success',
+          title: '注册成功',
+          timer: 1000
+        })
+      }
+    })
   }
 
   this.login = function () {
     console.log('login');
+    swal.mixin({
+      input: 'text',
+      confirmButtonText: 'Next &rarr;',
+      showCancelButton: true,
+      progressSteps: ['1', '2']
+    }).queue([{
+      title: '登录',
+      text: '请输入用户名'
+    }, {
+      title: '登录',
+      text: '请输入密码',
+      input: 'password'
+    }]).then(({ value }) => {
+      const userId = left.api.login({ name: value[0], password: value[1] });
+      if (userId) {
+        window.userInfo = left.api.getUserInfo({ userId });
+        window.userInfo.id = userId;
+        swal({
+          type: 'success',
+          title: '登录成功',
+          timer: 1000
+        })
+      }
+    })
   }
 
   this.select_autocomplete = function () {
@@ -239,7 +290,8 @@ function Left() {
   this.select_translate = async function () {
     const textObj = left.get_selections();
     const text = (textObj || {}).text;
-    
+
+    // 译文记忆
     const mem = memoryTrans(text);
     if (!!mem) {
       left.replace_selection_with(mem);
@@ -586,7 +638,7 @@ function Left() {
     return timestamp / 1000;
   }
 
-  this.splash = function () {
+  this.splash = function (word) {
     // return 'Maybe you are my baby.'
     // These are the old ways to show welcome.
     // var time = this.time();
@@ -594,7 +646,7 @@ function Left() {
     // if (time > 600) { return "Good afternoon."; }
     // if (time < 350) { return "Good morning."; }
     // return "Good day.";
-    return 'Hello World.\nHello World.'
+    return word || 'Hello World.\nHello World.'
   }
 
   this.reset = function () {

@@ -22,6 +22,10 @@
 <script src="scripts/options.js"></script>
 <script src="scripts/reader.js"></script>
 <script src="scripts/insert.js"></script>
+<script src="scripts/api.js"></script>
+<script>
+  loadDb();
+</script>
 </head>
 
 <body>
@@ -35,7 +39,7 @@
     // window.Popper = Popper;
 
     const { dialog, app } = require('electron').remote;
-    const fs = require('fs');
+    var fs = require('fs');
     const app_path = app.getAppPath();
 
     var left = new Left();
