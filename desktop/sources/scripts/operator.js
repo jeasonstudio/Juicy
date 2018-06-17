@@ -81,8 +81,14 @@ function Operator() {
     return parts;
   }
 
-  this.operate = function () {
+  this.operate = async function () {
     var value = this.el.value;
+    var regUrl = /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/
+
+    if (!regUrl.test(value)) {
+      this.stop();
+      throwErr('URL 不合法');
+    }
 
     if (value.indexOf("=") > -1) {
       var target = value.split("=")[0].trim();
@@ -90,7 +96,34 @@ function Operator() {
       this.update();
       left.replace_selection_with(param);
     }
+    try {
+      const response = await got(value);
+      const $ = cheerio.load(response.body);
+      let docCont;
+      if ($('aritcle').length) {
+        docCont = $('aritcle').text();
+      }
+      else if ($('main').length) {
+        docCont = $('main').text();
+      }
+      else if ($('contain').length) {
+        docCont = $('contain').text();
+      }
+      else if ($('.contain').length) {
+        docCont = $('.contain').text();
+      }
+      else if ($('.container').length) {
+        docCont = $('.container').text();
+      }
+      else {
+        docCont = $('body').text();
+      }
 
+      left.textarea_el.value = docCont;
+      left.refresh();
+    } catch (error) {
+        throwErr('读取网页内容失败');
+    }
     this.stop();
   }
 }

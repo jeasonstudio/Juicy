@@ -91,7 +91,7 @@ Left is a simple, minimalist, open-source and cross-platform text editor.
 
 * [x] 翻译划词
 * [x] 自定义译文
-* [ ] 使用共享译文
+* [x] 使用共享译文
 * [x] 替换原文
 * [x] 译文切换
 * [x] 记忆译文
@@ -104,7 +104,7 @@ Left is a simple, minimalist, open-source and cross-platform text editor.
 ```
 {
   user: { '[id]': { name, password } },
-  share: { '[id]': { userId, original, translated } }, // === custom translate
+  share: [ { userId, original, translated } ], // === custom translate
 
 }
 ```

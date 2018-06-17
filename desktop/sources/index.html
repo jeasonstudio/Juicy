@@ -34,7 +34,11 @@
     // const PNotify = require('pnotify').default;
     const { youdao, baidu, google } = require('translation.js');
     const Swal = require('sweetalert2');
+    const got = require('got');
+    const cheerio = require('cheerio');
     window.swal = Swal;
+    window.got = got;
+    window.cheerio = cheerio;
     // const Popper = require('popper.js');
     // window.Popper = Popper;
 

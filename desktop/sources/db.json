@@ -4,6 +4,11 @@
       "name": "jes",
       "password": "123",
       "id": "1"
+    },
+    "2": {
+      "name": "jeason",
+      "password": "123",
+      "id": 2
     }
   },
   "share": [
@@ -15,6 +20,11 @@
     {
       "userId": "1",
       "translate": "测试一下",
+      "original": "Hello World."
+    },
+    {
+      "userId": 2,
+      "translate": "xinveshi",
       "original": "Hello World."
     }
   ]
