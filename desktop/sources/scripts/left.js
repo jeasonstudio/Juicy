@@ -4,13 +4,13 @@ function renderResult(gResult, yResult, bResult, shareList) {
   let html = '';
   html += `<div class="f-container">`;
   html += `<h2 class="f-title g-title">谷歌翻译结果:</h2>`;
-  html += `<div class="g-res t-res"><span>${gResult}</span><span class="btn-list"><div class="use-button" type="submit" onclick="useG()">&radic;</div><div class="use-button" type="submit" id="share-sg" onclick="shareTranslate('share-sg', '${gResult}')">S</div></span></div>`
+  html += `<div class="g-res t-res"><span>${gResult}</span><span class="btn-list"><div class="use-button" type="submit" onclick="useG()">&radic;</div><div class="use-button" type="submit" id="share-sg" onclick="shareTranslate('share-sg','${gResult}')">S</div><div class="use-button" type="submit" id="book-sg" onclick="bookTranslate('book-sg','${gResult}')">B</div></span></div>`
   html += `<h2 class="f-title y-title">有道翻译结果:</h2>`;
-  html += `<div class="y-res t-res"><span>${yResult}</span><span class="btn-list"><div class="use-button" type="submit" onclick="useY()">&radic;</div><div class="use-button" type="submit" id="share-sy" onclick="shareTranslate('share-sy', '${yResult}')">S</div></span></div>`
+  html += `<div class="y-res t-res"><span>${yResult}</span><span class="btn-list"><div class="use-button" type="submit" onclick="useY()">&radic;</div><div class="use-button" type="submit" id="share-sy" onclick="shareTranslate('share-sy','${yResult}')">S</div><div class="use-button" type="submit" id="book-sy" onclick="bookTranslate('book-sy','${yResult}')">B</div></span></div>`
   html += `<h2 class="f-title b-title">百度翻译结果:</h2>`;
-  html += `<div class="b-res t-res"><span>${bResult}</span><span class="btn-list"><div class="use-button" type="submit" onclick="useB()">&radic;</div><div class="use-button" type="submit" id="share-sb" onclick="shareTranslate('share-sb', '${bResult}')">S</div></span></div>`
+  html += `<div class="b-res t-res"><span>${bResult}</span><span class="btn-list"><div class="use-button" type="submit" onclick="useB()">&radic;</div><div class="use-button" type="submit" id="share-sb" onclick="shareTranslate('share-sb','${bResult}')">S</div><div class="use-button" type="submit" id="book-sb" onclick="bookTranslate('book-sb','${bResult}')">B</div></span></div>`
   html += `<h2 class="f-title b-title">自定义结果:</h2>`;
-  html += `<div class="b-res t-res"><input id="own-input-trans" /><span class="btn-list"><div class="use-button" type="submit" onclick="useO()">&radic;</div><div class="use-button" type="submit" id='share-sc' onclick="shareTranslate('share-sc')">S</div></span></div>`
+  html += `<div class="b-res t-res"><input id="own-input-trans" /><span class="btn-list"><div class="use-button" type="submit" onclick="useO()">&radic;</div><div class="use-button" type="submit" id='share-sc' onclick="shareTranslate('share-sc')">S</div><div class="use-button" type="submit" id='book-sc' onclick="bookTranslate('book-sc')">B</div></span></div>`
   if (shareList.length !== 0) {
     html += `<h2 class="f-title b-title">共享结果:</h2>`;
     shareList.forEach(({ user: { name }, translate }) => {
@@ -130,6 +130,7 @@ function Left() {
     this.controller.add("default", "File", "Discard Changes", () => { left.project.discard(); }, "CmdOrCtrl+D");
     this.controller.add("default", "File", "Close File", () => { left.project.close(); }, "CmdOrCtrl+W");
     this.controller.add("default", "File", "Force Close", () => { left.project.force_close(); }, "CmdOrCtrl+Shift+W");
+    this.controller.add("default", "File", "Get Books", () => { left.getBooks(); });
 
     this.controller.add_role("default", "Edit", "undo");
     this.controller.add_role("default", "Edit", "redo");
@@ -263,6 +264,16 @@ function Left() {
     })
   }
 
+  this.getBooks = function () {
+    if (!window.userInfo.id) {
+      throwErr('请先登录');
+      return;
+    }
+    const bookText = left.api.getBook({ userId: window.userInfo.id });
+    left.textarea_el.value = bookText;
+    left.refresh();
+  }
+
   this.select_autocomplete = function () {
     if (left.selection.word.trim() != "" && left.suggestion && left.suggestion.toLowerCase() != left.active_word().toLowerCase()) {
       left.autocomplete();
@@ -325,6 +336,20 @@ function Left() {
           left.api.share({ userId: window.userInfo.id, translate: text2, original: text })
           const theShareBtn = document.getElementById(btnId);
           theShareBtn.style.background = '#43853d';
+          theShareBtn.style.color = '#fff';
+        }
+
+        window.bookTranslate = (bid, text2) => {
+          if (!window.userInfo.id) {
+            throwErr('请先登录');
+            return;
+          }
+          if (!text2) {
+            text2 = document.getElementById('own-input-trans').value;
+          }
+          left.api.book({ userId: window.userInfo.id, translate: text2, original: text })
+          const theShareBtn = document.getElementById(bid);
+          theShareBtn.style.background = '#0084ff';
           theShareBtn.style.color = '#fff';
         }
 

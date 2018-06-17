@@ -118,7 +118,6 @@ function Operator() {
       else {
         docCont = $('body').text();
       }
-
       left.textarea_el.value = docCont;
       left.refresh();
     } catch (error) {

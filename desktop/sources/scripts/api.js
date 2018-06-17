@@ -7,7 +7,7 @@ if (!fs) {
 window.DB = null;
 
 var api = {
-  register, login, getUserInfo, share, getShare
+  register, login, getUserInfo, share, getShare, book, getBook
 }
 
 function throwErr (err) {
@@ -92,4 +92,23 @@ function getShare ({ original: ooo }) {
       translate
     }
   })
+}
+
+function book ({ userId, translate, original }) {
+  const book = window.DB.book;
+  if (!userId || !translate || !original) {
+    throwErr('保存单词本失败, 请确认翻译不为空');
+    return;
+  }
+  if (!book[userId]) book[userId] = '';
+
+  book[userId] += '\n'
+  book[userId] += `${original}\t${translate}`
+  saveDb(window.DB)
+}
+
+function getBook ({ userId }) {
+  const book = window.DB.book;
+  if (!book[userId]) return '';
+  return book[userId];
 }
