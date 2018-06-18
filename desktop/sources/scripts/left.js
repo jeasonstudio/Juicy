@@ -13,8 +13,16 @@ function renderResult(gResult, yResult, bResult, shareList) {
   html += `<div class="b-res t-res"><input id="own-input-trans" /><span class="btn-list"><div class="use-button" type="submit" onclick="useO()">&radic;</div><div class="use-button" type="submit" id='share-sc' onclick="shareTranslate('share-sc')">S</div><div class="use-button" type="submit" id='book-sc' onclick="bookTranslate('book-sc')">B</div></span></div>`
   if (shareList.length !== 0) {
     html += `<h2 class="f-title b-title">共享结果:</h2>`;
-    shareList.forEach(({ user: { name }, translate }) => {
-      html += `<div class="b-res t-res"><span>${translate}  - by ${name}</span><span class="btn-list"><div class="use-button" type="submit" onclick="useShared('${translate}')">&radic;</div></span></div>`
+    window.starThis = function (index) {
+      let tid = `star-${index}`;
+      shareList[Number(index)].share = shareList[Number(index)].share ? shareList[Number(index)].share + 1 : 1;
+      const theStarBtn = document.getElementById(tid);
+      theStarBtn.style.background = 'rgb(255, 207, 0)';
+      theStarBtn.style.color = '#fff';
+      saveShare(shareList);
+    }
+    shareList.forEach(({ user: { name }, translate, star = 0 }, index) => {
+      html += `<div class="b-res t-res"><span>${translate}  - by ${name} - star ${star}</span><span class="btn-list"><div class="use-button" type="submit" onclick="useShared('${translate}')">&radic;</div><div class="use-button" type="submit" id="star-${index}" onclick="starThis('${index}')">☆</div></span></div>`
     })
   }
   html += `</div>`

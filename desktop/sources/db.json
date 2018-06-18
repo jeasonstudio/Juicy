@@ -12,7 +12,18 @@
     },
     "3": {
       "name": "zhoujing",
-      "password": "132"
+      "password": "132",
+      "id": "3"
+    },
+    "4": {
+      "name": "41521021",
+      "password": "123456",
+      "id": "4"
+    },
+    "5": {
+      "name": "wly",
+      "password": "41524102",
+      "id": "5"
     }
   },
   "share": [
@@ -42,6 +53,21 @@
       "original": "Hello World."
     },
     {
+      "userId": "1",
+      "translate": "你好",
+      "original": "Hello "
+    },
+    {
+      "userId": "1",
+      "translate": "你好",
+      "original": "Hello"
+    },
+    {
+      "userId": "5",
+      "translate": "PK",
+      "original": "PK"
+    },
+    {
       "userId": "2",
       "translate": "理所当然",
       "original": "granted"
@@ -55,10 +81,16 @@
       "userId": "2",
       "translate": "免费的",
       "original": "free of charge"
+    },
+    {
+      "userId": "1",
+      "translate": "我是老师",
+      "original": "i am a teacher"
     }
   ],
   "book": {
-    "1": "\nWorld\t世界\nWorld\t世界\nWorld\t世界\nHello World.\t你好，世界\nHello World.\t你好，世界。\nHello World.\t你好，世界",
-    "2": "\ngranted\t理所当然\ngranted\t授予\nfree of charge\t免费的"
+    "1": "\nWorld\t世界\nWorld\t世界\nWorld\t世界\nHello World.\t你好，世界\nHello World.\t你好，世界。\nHello World.\t你好，世界\ni am a teacher\t我是老师",
+    "2": "\ngranted\t理所当然\ngranted\t授予\nfree of charge\t免费的",
+    "5": "\nPK\tPK"
   }
 }

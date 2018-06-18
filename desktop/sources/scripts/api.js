@@ -7,7 +7,7 @@ if (!fs) {
 window.DB = null;
 
 var api = {
-  register, login, getUserInfo, share, getShare, book, getBook
+  register, login, getUserInfo, share, getShare, saveShare, book, getBook
 }
 
 function throwErr (err) {
@@ -111,4 +111,9 @@ function getBook ({ userId }) {
   const book = window.DB.book;
   if (!book[userId]) return '';
   return book[userId];
+}
+
+function saveShare (shareList) {
+  window.DB.share = shareList;
+  saveDb(window.DB);
 }
