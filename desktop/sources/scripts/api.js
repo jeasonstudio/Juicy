@@ -86,10 +86,11 @@ function getShare ({ original: ooo }) {
   }
   const tshare = window.DB.share;
   return tshare.filter(s => s.original === ooo)
-  .map(({ userId, translate }) => {
+  .map(({ userId, translate,star }) => {
     return {
       user: getUserInfo({ userId }),
-      translate
+      translate,
+      star
     }
   })
 }

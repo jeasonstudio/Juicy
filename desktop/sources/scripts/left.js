@@ -14,12 +14,14 @@ function renderResult(gResult, yResult, bResult, shareList) {
   if (shareList.length !== 0) {
     html += `<h2 class="f-title b-title">共享结果:</h2>`;
     window.starThis = function (index) {
+      index = Number(index);
       let tid = `star-${index}`;
-      shareList[Number(index)].share = shareList[Number(index)].share ? shareList[Number(index)].share + 1 : 1;
       const theStarBtn = document.getElementById(tid);
       theStarBtn.style.background = 'rgb(255, 207, 0)';
       theStarBtn.style.color = '#fff';
-      saveShare(shareList);
+
+      window.DB.share[index].star = window.DB.share[index].star ? window.DB.share[index].star + 1 : 1;
+      saveShare(window.DB.share);
     }
     shareList.forEach(({ user: { name }, translate, star = 0 }, index) => {
       html += `<div class="b-res t-res"><span>${translate}  - by ${name} - star ${star}</span><span class="btn-list"><div class="use-button" type="submit" onclick="useShared('${translate}')">&radic;</div><div class="use-button" type="submit" id="star-${index}" onclick="starThis('${index}')">☆</div></span></div>`
