@@ -143,13 +143,13 @@ function Left() {
     this.controller.add("default", "File", "强制关闭", () => { left.project.force_close(); }, "CmdOrCtrl+Shift+W");
     this.controller.add("default", "File", "打开生词本", () => { left.getBooks(); });
 
-    this.controller.add_role("default", "Edit", "撤销");
-    this.controller.add_role("default", "Edit", "重做");
-    this.controller.add_role("default", "Edit", "剪切");
-    this.controller.add_role("default", "Edit", "复制");
-    this.controller.add_role("default", "Edit", "粘贴");
-    this.controller.add_role("default", "Edit", "删除");
-    this.controller.add_role("default", "Edit", "全选");
+    this.controller.add_role("default", "Edit", "undo");
+    this.controller.add_role("default", "Edit", "redo");
+    this.controller.add_role("default", "Edit", "cut");
+    this.controller.add_role("default", "Edit", "copy");
+    this.controller.add_role("default", "Edit", "paste");
+    this.controller.add_role("default", "Edit", "delete");
+    this.controller.add_role("default", "Edit", "selectall");
 
     // this.controller.add("default", "Select", "Select Autocomplete", () => { left.select_autocomplete(); }, "Tab");
     this.controller.add("default", "Select", "同义词", () => { left.select_synonym(); }, "Shift+Tab");
