@@ -1,4 +1,6 @@
 const path = require('path');
+var got = require('got');
+var http = require('http');
 
 if (!fs) {
   var fs = require('fs');
@@ -26,17 +28,24 @@ function aiKey (Obj) {
   return maxKey + 1;
 }
 
- function loadDb () {
+ async function loadDb () {
   if (!!window.DB) return window.DB;
-  const db = JSON.parse(fs.readFileSync(path.resolve(__dirname, './db.json'), 'utf8'));
-  window.DB = db;
-  return db;
+  // const db = JSON.parse(fs.readFileSync(path.resolve(__dirname, './db.json'), 'utf8'));
+  // window.DB = db;
+  const aaaa = await got('http://123.206.14.30:7777');
+  const ddd = aaaa.body.replace(/\//g, '');
+  window.DB = JSON.parse(ddd);
+  return ddd;
 }
 
 function saveDb (db) {
   db = db || window.DB;
-  fs.writeFileSync(path.resolve(__dirname, './db.json'), JSON.stringify(db, null, 2));
+  fetch(`http://123.206.14.30:7777?db=${JSON.stringify(db)}`);
+  // await got(`http://123.206.14.30:7777?db=${JSON.stringify(db)}`);
+  // fs.writeFileSync(path.resolve(__dirname, './db.json'), JSON.stringify(db, null, 2));
 }
+
+loadDb();
 
 function register ({ name, password }) {
   loadDb();

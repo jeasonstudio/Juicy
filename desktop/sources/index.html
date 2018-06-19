@@ -34,7 +34,7 @@
     // const PNotify = require('pnotify').default;
     const { youdao, baidu, google } = require('translation.js');
     const Swal = require('sweetalert2');
-    const got = require('got');
+    var got = require('got');
     const cheerio = require('cheerio');
     window.swal = Swal;
     window.got = got;
@@ -56,9 +56,9 @@
       left.project.add(remote.process.argv[1]);
     }
 
-    const userId = login({ name: 'jes', password: '123' });
-    userInfo = getUserInfo({ userId });
-    userInfo.id = userId;
+    // const userId = login({ name: 'jes', password: '123' });
+    // userInfo = getUserInfo({ userId });
+    // userInfo.id = userId;
 
   </script>
 </body>
