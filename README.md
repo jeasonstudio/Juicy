@@ -4,6 +4,12 @@
 
 Juicy 是一个简约，开源和跨平台的 `英文文献翻译工具`
 
+### 下载
+
+* MacOS: [https://github.com/jeasonstudio/Juicy/releases/download/v1.2.0/Juicy-darwin-x64.zip](https://github.com/jeasonstudio/Juicy/releases/download/v1.2.0/Juicy-darwin-x64.zip)
+* Windows: [https://github.com/jeasonstudio/Juicy/releases/download/v1.2.0/Juicy-win32-x64.zip](https://github.com/jeasonstudio/Juicy/releases/download/v1.2.0/Juicy-win32-x64.zip)
+* Linux: [https://github.com/jeasonstudio/Juicy/releases/download/v1.2.0/Juicy-linux-x64.zip](https://github.com/jeasonstudio/Juicy/releases/download/v1.2.0/Juicy-linux-x64.zip)
+
 ![demo](./demo.jpg)
 
 - 通过以 `＃`，`##` 或 `--` 开始行来创建标记
